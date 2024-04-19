@@ -10,7 +10,6 @@ from keras.layers import Dense, Activation
 from keras.regularizers import l1, l2
 from keras.optimizers import Adam
 from sklearn.metrics import confusion_matrix, f1_score, classification_report
-import pickle
 import os
 
 def preprocess_data(data):
@@ -41,28 +40,11 @@ def train_model(x_train, y_train, x_test, y_test):
     model.compile(optimizer=Adam(), loss="binary_crossentropy", metrics=["accuracy"])
     history = model.fit(x_train, y_train, verbose=1, epochs=100, batch_size=64, validation_data=(x_test, y_test))
 
-    # Save model weights
-    model_weights_path = 'models/breast_cancer_model_weights.weights.h5'
-    model.save_weights(model_weights_path)
+    # Save model as TensorFlow SavedModel
+    model_path = 'models/breast_cancer_model.keras'
+    model.save(model_path)
 
-    # Save model architecture
-    model_architecture_path = 'models/breast_cancer_model_architecture.json'
-    with open(model_architecture_path, 'w') as f:
-        f.write(model.to_json())
-
-    # Save model as .pkl format
-    try:
-        if not os.path.exists('models'):
-            os.makedirs('models')
-
-        file_path = 'models/breast_cancer_model.pkl'
-        with open(file_path, 'wb') as f:
-            pickle.dump({'model_weights_path': model_weights_path, 'model_architecture_path': model_architecture_path}, f)
-
-        print("Model saved successfully as a .pkl file.")
-
-    except Exception as e:
-        print(f"An error occurred while saving the model: {e}")
+    print("Model saved successfully.")
 
     return model, history
 
