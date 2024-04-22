@@ -16,12 +16,12 @@ Mammo uses a model that runs as a feed-forward neural network using TensorFlow's
 ## Installation
 
 Run:
-'''
+```
 >> git clone https://github.com/Uwimbabazi-Keza/Breast-Cancer-Prediction-Model
 >> cd Breast-Cancer-Prediction-Model/src
 >> pip install -r requirements.txt
 >> python app.py
-'''
+```
 
 There are 30 input fields. For testing purposes, enter the sample data from  [Breast Cancer Wisconsin Dataset](https://www.kaggle.com/datasets/uciml/breast-cancer-wisconsin-data/code). Your output should read benign or malignant.
 
